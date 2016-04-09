@@ -8,7 +8,7 @@ To provide bidirectional syncronization from windows to linux I wrote this Bash 
 
 First need install unison under linux virtual machine:
 ```
-aptitude search unison
+aptitude install unison
 ```
 
 On Windows clone this project:
