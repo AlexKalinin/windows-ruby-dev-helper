@@ -1,0 +1,8 @@
+REMOTE_SSH_USERNAME=hedin
+REMOTE_SSH_HOST=localhost
+REMOTE_SSH_PORT=2222
+REMOTE_DIR_PATH="/home/hedin/test-wrbsync"
+
+# relative path to exclude from syncronization 
+# this variable can be not set
+declare -a UNISON_IGNORE_OPTIONS=("Path {.git}" "Name .gitignore")

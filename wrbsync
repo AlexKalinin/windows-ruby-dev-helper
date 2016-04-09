@@ -1,0 +1,121 @@
+SCRIPT_FOLDER="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+UNISON_EXE=$SCRIPT_FOLDER"/unison.exe"
+CURRENT_DIR_PATH=$(pwd)
+CURRENT_DIR_NAME=$(basename $CURRENT_DIR_PATH)
+CONFIG_FILE_PATH="$CURRENT_DIR_PATH/.wrbsync"
+
+# testing config file
+function testConfigFile(){
+	if [ ! -f $CONFIG_FILE_PATH ]; then
+	    echo "ERROR: Config file 'CONFIG_FILE_PATH' not found!"
+	    exit 1
+	fi
+
+	if [ -z $REMOTE_SSH_USERNAME ]; then
+	    echo "ERROR: Variable 'REMOTE_SSH_USERNAME' is not set!"
+	    exit 1
+	fi
+
+	if [ -z $REMOTE_SSH_HOST ]; then
+	    echo "ERROR: Variable 'REMOTE_SSH_HOST' is not set!"
+	    exit 1
+	fi
+
+	if [ -z $REMOTE_SSH_PORT ]; then
+	    echo "ERROR: Variable 'REMOTE_SSH_PORT' is not set!"
+	    exit 1
+	fi
+
+	if [ -z $REMOTE_DIR_PATH ]; then
+	    echo "ERROR: Variable 'REMOTE_DIR_PATH' is not set!"
+	    exit 1
+	fi
+}
+
+function doSync(){
+	echo "doSync(): starting..."
+}
+
+
+
+# ==============================
+# ======= EXECUTION PART =======
+echo "Loading $CONFIG_FILE_PATH configuration file..."
+source $CONFIG_FILE_PATH
+
+testConfigFile
+
+
+UNISON_REMOTE_TARGET="ssh://$REMOTE_SSH_USERNAME@$REMOTE_SSH_HOST:$REMOTE_SSH_PORT//$REMOTE_DIR_PATH"
+UNISON_LOCAL_TARGET=$CURRENT_DIR_PATH
+
+
+# CREATING PROFILE
+mkdir -p $HOME/.unison
+UNISON_PROFILE_FILE="$HOME/.unison/$CURRENT_DIR_NAME.prf"
+rm -f $UNISON_PROFILE_FILE
+touch $UNISON_PROFILE_FILE
+
+
+echo "root = ." >> $UNISON_PROFILE_FILE
+echo "root = $UNISON_REMOTE_TARGET" >> $UNISON_PROFILE_FILE
+echo "prefer = ." >> $UNISON_PROFILE_FILE
+echo "fastcheck = no" >> $UNISON_PROFILE_FILE
+echo "batch = true" >> $UNISON_PROFILE_FILE
+#echo "debug = all" >> $UNISON_PROFILE_FILE
+#echo "silent = true" >> $UNISON_PROFILE_FILE
+#echo "repeat = watch" >> $UNISON_PROFILE_FILE
+#echo "watch = true" >> $UNISON_PROFILE_FILE
+
+for i in "${UNISON_IGNORE_OPTIONS[@]}"
+do
+   echo "ignore = $i" >> $UNISON_PROFILE_FILE
+done
+
+
+
+
+cat "$HOME/.unison/$CURRENT_DIR_NAME.prf"
+
+COMMAND_SYNC="$UNISON_EXE $CURRENT_DIR_NAME"
+
+echo $COMMAND_SYNC
+
+
+echo " ------------------------------------ "
+
+
+#while :
+#do
+
+$COMMAND_SYNC
+
+#	sleep 1
+#done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# BUILDIN SYNC COMMAND
+
+
+# if any ignore options are set:
+
+#COMMAND_SYNC="$UNISON_EXE $UNISON_LOCAL_TARGET $UNISON_REMOTE_TARGET -prefer $UNISON_LOCAL_TARGET -fastcheck no $ignore_opts"
+#COMMAND_SYNC="$UNISON_EXE -root $UNISON_LOCAL_TARGET -root $UNISON_REMOTE_TARGET -prefer $UNISON_LOCAL_TARGET -fastcheck no $UNISON_IGNORE_OPTION"
+#COMMAND_SYNC="$UNISON_EXE $CURRENT_DIR_PATH/profile.prf"
+
+
+
