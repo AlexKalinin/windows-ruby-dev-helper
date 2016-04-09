@@ -20,7 +20,7 @@ and add path to the `windows-ruby-dev-helper/` folder to system path.
 
 ## Usage
 
-Now run your Windows Bash interpreter (if you have no, you can download it with [git for windows](https://git-scm.com/download/win)), got to the project:
+Now run your Windows Bash interpreter (if you have no, you can download it with [git for windows](https://git-scm.com/download/win)), go to the project:
 ```
 cd /c/prj/myproj
 ```
