@@ -1,5 +1,5 @@
 # Bidirectional Windows-Linux Syncronization Tool for Rails Development
-I work under Windows, but I need to execute my Ruby on Rails project under Linux virtual machine. [Vagrant](https://www.vagrantup.com/) and VirtualBox Shared Folders has some limits for Windows syncronization, like symlincs, or uncorrect file timestamps.
+I work under Windows, but I need to execute my Ruby on Rails project under Linux virtual machine. [Vagrant](https://www.vagrantup.com/) and VirtualBox Shared Folders has some limits for Windows syncronization, like symlincs, or incorrect file timestamps.
 
 
 To provide bidirectional syncronization from windows to linux I wrote this Bash wrapper over the [unison](https://www.cis.upenn.edu/~bcpierce/unison/) tool. 
