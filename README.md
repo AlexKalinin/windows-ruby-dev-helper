@@ -1,3 +1,6 @@
+[![Code Climate](https://codeclimate.com/repos/5731863771bcda21cd0018fe/badges/c703d230e11a9b6374b2/gpa.svg)](https://codeclimate.com/repos/5731863771bcda21cd0018fe/feed)
+
+
 # Bidirectional Windows-Linux Syncronization Tool for Rails Development
 I work under Windows, but I need to execute my Ruby on Rails project under Linux virtual machine. [Vagrant](https://www.vagrantup.com/) and VirtualBox Shared Folders has some limits for Windows syncronization, like symlincs, or incorrect file timestamps.
 
